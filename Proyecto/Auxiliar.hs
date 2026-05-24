@@ -11,7 +11,7 @@ contiene a (x:xs) = x == a || contiene a xs
 {-
 Funcion que dada una lista, te regresa la lista sin elementos repetidos
 -}
-sinRepetidos :: [a] -> [a]
+sinRepetidos :: (Eq a) => [a] -> [a]
 sinRepetidos [] = []
 sinRepetidos (x:xs) 
     | (contiene x xs) = sinRepetidos xs
@@ -51,4 +51,43 @@ insertar x (y:ys)
 frecDesc :: [(Char,Int)] -> [(Char,Int)]
 frecDesc [] = []
 frecDesc (x:xs) = insertar x (frecDesc xs)
+
+{-
+    Funcion para obtener todas las frecuencias de los caracteres de una cadena ordenadas de mayor a menor
+-}
+frecString :: String -> [(Char,Int)]
+frecString s = frecDesc (frecuencias s)
+
+
+--
+--
+--
+--
+
+data Arbol
+    = Vacio
+    | Hoja Char Int                 --- Carcater y frecuencia 
+    | Node Int Arbol Arbol         --- Peso de la hoja = la suma de la freceuencia de los caracteres del subarbol
+        deriving (Show, Eq)
+
+{-
+    Funcion para crear hoja de la frecuencia de un caracter (Char,Int)
+-}
+crearHoja :: (Char,Int) -> Arbol
+crearHoja (c,f) = Hoja c f  
+
+{- 
+    Funcion para crear las hojas de huffman a partir de una lista de frecuencias (Char,Int)
+-}
+hojasHuffman :: [(Char,Int)] -> [Arbol]
+hojasHuffman [] = []
+hojasHuffman (x:xs) = (crearHoja x) : hojasHuffman xs
+
+{-
+    Funcion para obtener la frecuencia o peso de un nodo
+-}
+frecuenciaNodo  :: Arbol -> Int
+frecuenciaNodo Vacio = 0    
+frecuenciaNodo (Hoja _ f) = f
+frecuenciaNodo (Node f _ _) = f
 
