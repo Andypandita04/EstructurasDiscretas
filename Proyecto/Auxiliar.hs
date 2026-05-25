@@ -46,6 +46,17 @@ insertar x (y:ys)
     |  (snd x) <= (snd y)  = x : y : ys     -- snd el segundo elemento de la dupla
     | otherwise            = y : (insertar x ys)
 
+
+{-
+    Funcion para insertar un elemento de forma ordenada una lista de duplas (Char,Int)
+    De mayor a menor
+-}
+insertarDesc :: (Char,Int) -> [(Char,Int)] -> [(Char,Int)]
+insertarDesc x [] = [x]
+insertarDesc x (y:ys)
+    |  (snd x) >= (snd y)  = x : y : ys     -- snd el segundo elemento de la dupla
+    | otherwise            = y : (insertarDesc x ys)    
+
 {-
     Funcion para ordenar las frecuencias (una lista de duplas (Char,Int)) 
     De menor a mayor 
