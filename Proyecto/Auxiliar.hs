@@ -46,7 +46,7 @@ insertar x (y:ys)
     |  (snd x) <= (snd y)  = x : y : ys     -- snd el segundo elemento de la dupla
     | otherwise            = y : (insertar x ys)
 
-
+--------------------------------------------------------------------------
 {-
     Funcion para insertar un elemento de forma ordenada una lista de duplas (Char,Int)
     De mayor a menor
@@ -56,6 +56,24 @@ insertarDesc x [] = [x]
 insertarDesc x (y:ys)
     |  (snd x) >= (snd y)  = x : y : ys     -- snd el segundo elemento de la dupla
     | otherwise            = y : (insertarDesc x ys)    
+
+{-
+    Funcion para ordenar las frecuencias (una lista de duplas (Char,Int)) 
+    De mayor a menor 
+-}
+frecDesc :: [(Char,Int)] -> [(Char,Int)]
+frecDesc [] = []
+frecDesc (x:xs) = insertarDesc x (frecDesc xs)
+
+{-
+    Funcion para obtener todas las frecuencias de los caracteres de una cadena ordenadas de mayor a menor
+-}
+frecDescString :: String -> [(Char,Int)]
+frecDescString s = frecDesc (frecuencias s)
+
+
+--------------------------------------------------------------------------
+
 
 {-
     Funcion para ordenar las frecuencias (una lista de duplas (Char,Int)) 
