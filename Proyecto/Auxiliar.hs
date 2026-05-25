@@ -105,7 +105,8 @@ unirArboles a b = Nodo (frecuenciaNodo a + frecuenciaNodo b) a b
 
 
 {-
-    Funcion para insertar un arbol de huffman en una lista de arboles de huffman ordenada por frecuencia
+    Funcion para insertar un arbol de huffman en una lista de arboles de huffman 
+    la lista esta ordenada por frecuencia de menos a mayor
 -}
 insertarArbol :: Arbol -> [Arbol] -> [Arbol]
 insertarArbol a [] = [a]
@@ -121,4 +122,62 @@ crearArbolHuffman :: [Arbol] -> Arbol
 crearArbolHuffman [] = Vacio
 crearArbolHuffman [x] = x
 crearArbolHuffman (x:y:xs) = crearArbolHuffman (insertarArbol (unirArboles x y) xs)
+
+{-
+    verifica si un caracter se encuentra en el arbol de huffman
+-}
+contieneArbol :: Char -> Arbol -> Bool
+contieneArbol _ Vacio = False
+contieneArbol a (Hoja x _) = a == x
+contieneArbol a (Nodo _ izq der) = contieneArbol a izq || contieneArbol a der   
+
+--
+--
+--
+--
+--
+--
+--
+--
+
+
+
+{-
+    Funcion para codificar un caracter en la codficiacion de huffman
+    La cadena se va construyendo mientras recorremos el arbol 
+    Si toma el camnino izquierdo, se agrtega un 0
+    Si toma el camino derecho, se agrega un 1 
+-}
+codificarCaracter :: Char -> Arbol -> String
+codificarCaracter _ Vacio = []  
+codificarCaracter a (Hoja x f) 
+    | a == x    = []  -- Entramos en la hoja, aqui no regresamos nada 
+codificarCaracter a (Nodo _ izq der) =
+    if contieneArbol a izq then '0' : codificarCaracter a izq
+    else if contieneArbol a der then '1' : codificarCaracter a der
+    else []  -- Si el caracter no se encuentra en el arbol, regresa una cadena vacia   
+
+ {-
+    Funcion para codificar una cadena dada un arbol de huffman, 
+ -}
+codificarCadena :: String -> Arbol -> String
+codificarCadena [] _ = []
+codificarCadena (x:xs) arbol = (codificarCaracter x arbol) ++ codificarCadena xs arbol
+
+{-
+    Codigo para decodificar una cadena dado la cadena codificada y el arbol de huffman
+-}
+decodificarCadena :: String -> Arbol -> String
+decodificarCadena s a = decodificarAux s a 
+    where 
+        decodificarAux :: String -> Arbol -> String
+        decodificarAux _ Vacio = []
+        decodificarAux s (Hoja c f) = [c] ++ (decodificarAux s a) -- Si llegamos a una hoja, agregamos el caracter a la cadena decodificada
+        decodificarAux [] _ = []
+        decodificarAux (x:xs) (Nodo _ izq der) 
+            | x == '0'  = decodificarAux xs izq
+            | x == '1'  = decodificarAux xs der
+            | otherwise = []  
+
+
 
