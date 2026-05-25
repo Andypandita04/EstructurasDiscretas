@@ -2,6 +2,15 @@ module Proyecto where
 import Auxiliar
 
 {-
+    Funcion para ordenar las frecuencias (una lista de duplas (Char,Int)) 
+    De mayor a menor  
+-}
+frecuenciadDescescientes :: [(Char,Int)] -> [(Char,Int)]
+frecuenciadDescescientes [] = []
+frecuenciadDescescientes (x:xs) = insertarDesc x (frecuenciadDescescientes xs)
+
+
+{-
     Funcion para obtener el arbol de huffman de una cadena dada
     - primero sacamos las frecuencias de los caracteres de la cadena dada
     - De cada frecuecia se crea una hoja de huffman y se crea una lista
