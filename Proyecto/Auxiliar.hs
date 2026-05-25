@@ -190,5 +190,27 @@ decodificarCadena s a = decodificarAux s a
             | x == '1'  = decodificarAux xs der
             | otherwise = []  
 
+--
+--
+--
+--
+--
+{- 
+     Fucnion para obtener la longitud de una lista
+-}
+longitud :: [a] -> Float 
+longitud [] = 0
+longitud (x:xs) = 1 + longitud xs
 
-
+{-
+    Fucnion para medir la logitud de una cadena en bit 
+    Sabemos que cada caracter ocupa 8 bits 
+-}
+longitudBits :: String -> Float
+longitudBits [] = 0
+longitudBits s = longitud s * 8
+{-
+    Funcion para obtener la diferencia porcentual
+-}
+diferenciaPorcentual :: Float -> Float -> Float
+diferenciaPorcentual original nuevo = (( abs(nuevo - original)) / ((nuevo + original)/2)) * 100

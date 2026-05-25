@@ -39,5 +39,11 @@ decodificacionHuffman [] _ = []
 decodificacionHuffman s Vacio = []  
 decodificacionHuffman s arbol = decodificarCadena s arbol
 
+{-
+    Funcion para obtener la diferencia porcentual entre la cadena original y la codificada
+-}
+difPorcentualCodificacion :: String -> Float
+difPorcentualCodificacion s = diferenciaPorcentual (longitudBits s) (longitud (codificacionHuffman s))
+
 
 
