@@ -5,9 +5,9 @@ import Auxiliar
     Funcion para ordenar las frecuencias (una lista de duplas (Char,Int)) 
     De mayor a menor  
 -}
-frecuenciadDescescientes :: [(Char,Int)] -> [(Char,Int)]
-frecuenciadDescescientes [] = []
-frecuenciadDescescientes (x:xs) = insertarDesc x (frecuenciadDescescientes xs)
+frecDesc :: [(Char,Int)] -> [(Char,Int)]
+frecDesc [] = []
+frecDesc (x:xs) = insertarDesc x (frecDesc xs)
 
 
 {-
