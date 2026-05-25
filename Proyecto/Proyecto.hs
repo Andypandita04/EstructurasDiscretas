@@ -5,9 +5,9 @@ import Auxiliar
     Funcion para ordenar las frecuencias (una lista de duplas (Char,Int)) 
     De mayor a menor  
 -}
-frecDesc :: [(Char,Int)] -> [(Char,Int)]
-frecDesc [] = []
-frecDesc (x:xs) = insertarDesc x (frecDesc xs)
+frecDescP :: String -> [(Char,Int)]
+frecDescP [] = []
+frecDescP s = frecDescString s
 
 
 {-
@@ -19,8 +19,7 @@ frecDesc (x:xs) = insertarDesc x (frecDesc xs)
 arbolHuffman :: String -> Arbol
 arbolHuffman [] = Vacio
 arbolHuffman s = crearArbolHuffman  (hojasHuffman (  frecString s))
-
-
+ 
 {-
     Funcion para obtener la codificacion de Huffman
     - obtenemos el arbol de huffman
